@@ -110,11 +110,8 @@ namespace RiverRaider.Class.MapScripts {
         public void drawMap(SpriteBatch theBatch) {
             tiles.ForEach((tile) => {
                 tile.drawTile(theBatch);
-                    tile.boundingBoxes.ForEach((bb) => {
-                        // Draw debug point at bounding box position
-                        theBatch.Draw(Game1.textureManager.debugPoint, new Vector2(bb.X,bb.Y), Color.White);
-                    });
-                });
+                theBatch.Draw(Game1.textureManager.debugPoint, new Vector2(tile.boundingBox.X,tile.boundingBox.Y), Color.White);
+            });
         }
 
         private void removeHiddenBullets() {

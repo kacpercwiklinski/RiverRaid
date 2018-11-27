@@ -32,7 +32,7 @@
 /processorParam:TextureFormat=Color
 /build:textures/Background/splashScreenBackground.png
 
-#begin textures/debug/centerLine.png
+#begin textures/debugTextures/centerLine.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,9 +42,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:textures/debug/centerLine.png
+/build:textures/debugTextures/centerLine.png
 
-#begin textures/debug/debugPoint.png
+#begin textures/debugTextures/debugPoint.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -54,7 +54,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:textures/debug/debugPoint.png
+/build:textures/debugTextures/debugPoint.png
 
 #begin textures/mapObjects/fuel.png
 /importer:TextureImporter

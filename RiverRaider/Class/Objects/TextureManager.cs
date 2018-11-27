@@ -50,8 +50,8 @@ namespace RiverRaider.Class.Objects {
             splashScreenBackground = theContent.Load<Texture2D>("textures/background/splashScreenBackground");
 
              // Debug
-            centerLine = theContent.Load<Texture2D>("textures/debug/centerLine");
-            debugPoint = theContent.Load<Texture2D>("textures/debug/debugPoint");
+            centerLine = theContent.Load<Texture2D>("textures/debugTextures/centerLine");
+            debugPoint = theContent.Load<Texture2D>("textures/debugTextures/debugPoint");
 
             // Map Object
             fuel = theContent.Load<Texture2D>("textures/mapObjects/fuel");

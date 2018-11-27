@@ -45,21 +45,13 @@ namespace RiverRaider.Class.Objects {
         }
 
         private void handleTilesCollisions() {
-            Tile currentTile = Map.tiles.Find((tile) => pos.Y + texture.Height/2 + 5 >= tile.pos.Y && pos.Y <= (tile.pos.Y + tile.texture.Height));
+            Tile currentTile = Map.tiles.Find((tile) => pos.Y + texture.Height / 2 + 5 >= tile.pos.Y && pos.Y <= (tile.pos.Y + tile.texture.Height));
 
             if (currentTile != null) {
                 currentTile.setupBoundingBoxes();
-                currentTile.boundingBoxes.ForEach((otherBoundingBox) => {       // TU SKONCZYLEM
-                    if (otherBoundingBox.Intersects(boundingBox)) {
-                            if ((boundingBox.Center.Y <= (otherBoundingBox.Center.Y - otherBoundingBox.Height / 2)) ||
-                            (boundingBox.Center.Y >= (otherBoundingBox.Y + otherBoundingBox.Height / 2))) {
-                            Debug.WriteLine("Uderzono z gory");
-                            } else {
-                            Debug.WriteLine("Uderzono z boku");
-                        }
-                        
-                    }
-                });
+                if (currentTile.boundingBox.Intersects(boundingBox)) {
+                    Debug.WriteLine(currentTile.tileType);
+                }
             }
         }
 
