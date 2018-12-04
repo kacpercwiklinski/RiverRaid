@@ -22,7 +22,7 @@ namespace RiverRaider.Class.Objects {
         }
 
         private void updateBoundingBox() {
-            this.boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
+            this.boundingBox = new Rectangle((int)this.pos.X-this.texture.Width/2, (int)this.pos.Y, this.texture.Width, this.texture.Height);
         }
 
         private void handleCollisions() {
@@ -42,6 +42,7 @@ namespace RiverRaider.Class.Objects {
         public void drawBullet(SpriteBatch theBatch) {
             if (this.isDrawable) {
                 theBatch.Draw(this.texture, new Vector2(this.pos.X - this.texture.Width / 2, this.pos.Y), Color.White);
+                LineBatch.drawBoundingBox(this.boundingBox, theBatch);
             }
         }
 

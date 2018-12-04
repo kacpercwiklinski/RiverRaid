@@ -22,7 +22,7 @@ namespace RiverRaider.Class {
             this.texture = texture;
             this.isTriggerable = true;
             this.isDrawable = true;
-            this.boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
+            this.boundingBox = new Rectangle((int)this.pos.X-this.texture.Width/2, (int)this.pos.Y-this.texture.Height/2, this.texture.Width, this.texture.Height);
         }
     }
 }

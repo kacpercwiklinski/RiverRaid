@@ -16,6 +16,7 @@ namespace RiverRaider.Class.MapScripts {
         public String label;
         public Vector2 pos;
         public Texture2D texture;
+        public Texture2D explosionTexture = Game1.textureManager.fuel_explosion;
         public Rectangle boundingBox;
         public Boolean isTriggerable;
         public Boolean onScreen;
@@ -43,7 +44,9 @@ namespace RiverRaider.Class.MapScripts {
         }
 
         public virtual void updateObject(GameTime theTime) {
+            updateBoundingBox(theTime);
             if (isHit) {
+                changeTexture();
                 disappearTime -= (float)theTime.ElapsedGameTime.TotalSeconds;
             }
             if(disappearTime <= 0f) {
@@ -51,10 +54,18 @@ namespace RiverRaider.Class.MapScripts {
             }
         }
 
+        private void updateBoundingBox(GameTime theTime) {
+            boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
+        }
+
         public void draw(SpriteBatch theBatch) {
             if (this.onScreen) {
                 theBatch.Draw(this.texture, this.pos, Color.White);
             }
+        }
+
+        private void changeTexture() {
+            this.texture = this.explosionTexture;
         }
 
 

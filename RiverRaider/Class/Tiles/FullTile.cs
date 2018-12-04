@@ -12,11 +12,6 @@ namespace RiverRaider.Class.Tiles {
             this.texture = Game1.textureManager.fullTile;
             tileType = TileType.FullTile;
             
-            setupBoundingBoxes();
-        }
-
-        public override void setupBoundingBoxes() {
-            boundingBox = new Rectangle((int)pos.X, (int)pos.Y, (int)texture.Width, (int)texture.Height);
         }
     }
 }

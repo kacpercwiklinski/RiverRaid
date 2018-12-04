@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RiverRaider.Class.MapScripts;
+using RiverRaider.Class.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,8 @@ namespace RiverRaider.Class.Tiles {
         Random random = new Random();
         int maxEnemies = 3;
         public Texture2D texture;
-        public Texture2D bgTexture = Game1.textureManager.fullTile;
         public Vector2 pos;
-        public Rectangle boundingBox;
+        public List<Rectangle> boundingBoxes = new List<Rectangle>();
         public Boolean onScreen = true;
         public TileType tileType;
 
@@ -24,14 +24,12 @@ namespace RiverRaider.Class.Tiles {
             pos = position;
             this.texture = texture;
             this.tileType = tileType;
-            setupBoundingBoxes();
         }
 
         public Tile(Vector2 position) {
             pos = position;
             this.texture = Game1.textureManager.fullTile;
             this.tileType = TileType.FullTile;
-            setupBoundingBoxes();
         }
 
         public void generateEnemies() {
@@ -39,14 +37,14 @@ namespace RiverRaider.Class.Tiles {
                 // TODO: SPAWN ENEMIES
             }
         }
+
         public virtual void setupBoundingBoxes() {
-            boundingBox = new Rectangle((int)pos.X, (int)pos.Y, (int)texture.Width, (int)texture.Height);
+
         }
-        
 
         public void drawTile(SpriteBatch theBatch) {
-            theBatch.Draw(this.bgTexture, this.pos, Color.White);
             theBatch.Draw(this.texture, this.pos, Color.White);
+            boundingBoxes.ForEach((bb) => LineBatch.drawBoundingBox(bb, theBatch));
         }
 
     }

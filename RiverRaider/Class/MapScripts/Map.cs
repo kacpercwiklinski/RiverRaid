@@ -103,15 +103,20 @@ namespace RiverRaider.Class.MapScripts {
                 tile.pos.Y += mapMovingSpeed * (float)theTime.ElapsedGameTime.TotalSeconds;
             });
 
-            mapObjects = mapObjects.FindAll((mapObject) => mapObject.onScreen);
+            mapObjects = mapObjects.FindAll((mapObject) => mapObject.onScreen || mapObject.isTriggerable);
             tiles = tiles.FindAll((tile) => tile.onScreen);
         }
 
         public void drawMap(SpriteBatch theBatch) {
             tiles.ForEach((tile) => {
                 tile.drawTile(theBatch);
-                theBatch.Draw(Game1.textureManager.debugPoint, new Vector2(tile.boundingBox.X,tile.boundingBox.Y), Color.White);
             });
+
+            mapObjects.ForEach((mapObject) => {
+                mapObject.draw(theBatch);
+                LineBatch.drawBoundingBox(mapObject.boundingBox, theBatch);
+            });
+
         }
 
         private void removeHiddenBullets() {

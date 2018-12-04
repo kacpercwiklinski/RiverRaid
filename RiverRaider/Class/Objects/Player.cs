@@ -11,11 +11,16 @@ using RiverRaider.Class.MapScripts;
 using RiverRaider.Class.Tiles;
 
 namespace RiverRaider.Class.Objects {
+
+    public enum HorizontalCollision {  Left,Right, None }
+
     class Player : GameObject {
         float speed = 200f;
         public static List<Bullet> bullets;
         float shootCooldown = 0.2f;
         float acceleration = 400f;
+        HorizontalCollision horizontalCollision = HorizontalCollision.None;
+
 
         public Player(string labels, Texture2D texture, Vector2 position) : base(labels, texture, position) {
             bullets = new List<Bullet>();
@@ -41,18 +46,32 @@ namespace RiverRaider.Class.Objects {
         }
 
         private void updateBoundingBox() {
-            boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
+            boundingBox = new Rectangle((int)this.pos.X-this.texture.Width/2, (int)this.pos.Y, this.texture.Width, this.texture.Height);
         }
 
         private void handleTilesCollisions() {
-            Tile currentTile = Map.tiles.Find((tile) => pos.Y + texture.Height / 2 + 5 >= tile.pos.Y && pos.Y <= (tile.pos.Y + tile.texture.Height));
+            Tile currentTile = Map.tiles.Find((tile) => (pos.Y + texture.Height + 5) >= tile.pos.Y && pos.Y <= (tile.pos.Y + tile.texture.Height));
 
             if (currentTile != null) {
                 currentTile.setupBoundingBoxes();
-                if (currentTile.boundingBox.Intersects(boundingBox)) {
-                    Debug.WriteLine(currentTile.tileType);
-                }
+                currentTile.boundingBoxes.ForEach((otherBoundingBox) => {
+                    if (otherBoundingBox.Intersects(boundingBox)) {
+                        if ((this.boundingBox.Center.Y <= (otherBoundingBox.Center.Y - otherBoundingBox.Height / 2)) ||
+                        (this.boundingBox.Center.Y >= (otherBoundingBox.Center.Y + otherBoundingBox.Height / 2))) {
+                            // TODO: Plane explode
+                        } else {
+                            if (this.boundingBox.Left < otherBoundingBox.Right && this.boundingBox.Left > otherBoundingBox.Left) {
+                                this.horizontalCollision = HorizontalCollision.Left;
+                            } else if (this.boundingBox.Right > otherBoundingBox.Left && this.boundingBox.Right < otherBoundingBox.Right) {
+                                this.horizontalCollision = HorizontalCollision.Right;
+                            }
+                        }
+                    }
+                });
             }
+
+            Debug.WriteLine(this.horizontalCollision);
+            horizontalCollision = HorizontalCollision.None;
         }
 
         private void handleMovement(GameTime theTime) {
@@ -92,6 +111,7 @@ namespace RiverRaider.Class.Objects {
 
         public void drawPlayer(SpriteBatch theBatch) {
             theBatch.Draw(this.texture, new Vector2(this.pos.X-this.texture.Width/2,pos.Y), Color.White);
+            LineBatch.drawBoundingBox(this.boundingBox, theBatch);
 
             bullets.ForEach((bullet) => bullet.drawBullet(theBatch));
 

@@ -14,6 +14,7 @@ namespace RiverRaider.Class.MapScripts {
             label = "Fuel";
             this.pos = position;
             texture = Game1.textureManager.fuel;
+            explosionTexture = Game1.textureManager.fuel_explosion;
             resetPosition();
             this.boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
 
@@ -22,7 +23,7 @@ namespace RiverRaider.Class.MapScripts {
             isHit = false;
         }
 
-        public override void updateObject(GameTime theTime) {
+        /*public override void updateObject(GameTime theTime) {
             if (isHit) {
                 changeTexture();
                 disappearTime -= (float)theTime.ElapsedGameTime.TotalSeconds;
@@ -33,7 +34,8 @@ namespace RiverRaider.Class.MapScripts {
         }
 
         private void changeTexture() {
-            this.texture = Game1.textureManager.fuel_explosion;
+            this.texture = this.explosionTexture;
         }
+        */
     }
 }

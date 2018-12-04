@@ -52,6 +52,7 @@ namespace RiverRaider {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            LineBatch.Init(GraphicsDevice);
             textureManager = new TextureManager(this.Content);
 
             mControllerScreen = new ControllerDetectScreen(this.Content, new EventHandler(ControllerDetectScreenEvent));
@@ -112,8 +113,13 @@ namespace RiverRaider {
             GraphicsDevice.Clear(Color.ForestGreen);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(); //SpriteSortMode.Immediate, BlendState.Opaque
+            //RasterizerState state = new RasterizerState();
+            //state.FillMode = FillMode.WireFrame;
+            //spriteBatch.GraphicsDevice.RasterizerState = state;
+
             mCurrentScreen.Draw(spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
