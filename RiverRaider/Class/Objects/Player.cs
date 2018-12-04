@@ -29,36 +29,44 @@ namespace RiverRaider.Class.Objects {
         public void update(GameTime theTime) {
             // Handle shooting timer
             handleShootCooldown(theTime);
-
+            
             // Handle player movement
             handleMovement(theTime);
 
             // Update player boundingBox
             updateBoundingBox();
 
-            // Update bullets
-            bullets.ForEach((bullet) => bullet.updateBullet(theTime));
-            bullets = bullets.FindAll((bullet) => bullet.isDrawable);
-
             // Handle tiles collisions
             handleTilesCollisions();
 
+            // Update bullets
+            bullets.ForEach((bullet) => bullet.updateBullet(theTime));
+            bullets = bullets.FindAll((bullet) => bullet.isDrawable);
         }
 
         private void updateBoundingBox() {
-            boundingBox = new Rectangle((int)this.pos.X-this.texture.Width/2, (int)this.pos.Y, this.texture.Width, this.texture.Height);
+            boundingBox = new Rectangle((int)this.pos.X- Game1.textureManager.player.Width/2, (int)this.pos.Y, Game1.textureManager.player.Width, Game1.textureManager.player.Height);
         }
 
         private void handleTilesCollisions() {
-            Tile currentTile = Map.tiles.Find((tile) => (pos.Y + texture.Height + 5) >= tile.pos.Y && pos.Y <= (tile.pos.Y + tile.texture.Height));
+            List<Rectangle> currentBoundingBoxes = new List<Rectangle>();
 
-            if (currentTile != null) {
+            Tile currentTile = Map.tiles.Find((tile) => (pos.Y + texture.Height + 5) >= tile.pos.Y && pos.Y <= (tile.pos.Y + tile.texture.Height));
+            Tile nextTile = Map.tiles.Find((tile) => tile.pos.Y <= currentTile.pos.Y - tile.texture.Height + 10 && tile.pos.Y >= currentTile.pos.Y - tile.texture.Height - 10);
+
+            if (currentTile != null && nextTile != null) {
                 currentTile.setupBoundingBoxes();
-                currentTile.boundingBoxes.ForEach((otherBoundingBox) => {
+                nextTile.setupBoundingBoxes();
+
+                currentBoundingBoxes.AddRange(currentTile.boundingBoxes);
+                currentBoundingBoxes.AddRange(nextTile.boundingBoxes);
+
+                currentBoundingBoxes.ForEach((otherBoundingBox) => {
                     if (otherBoundingBox.Intersects(boundingBox)) {
                         if ((this.boundingBox.Center.Y <= (otherBoundingBox.Center.Y - otherBoundingBox.Height / 2)) ||
                         (this.boundingBox.Center.Y >= (otherBoundingBox.Center.Y + otherBoundingBox.Height / 2))) {
                             // TODO: Plane explode
+                            Debug.WriteLine("Bum");
                         } else {
                             if (this.boundingBox.Left < otherBoundingBox.Right && this.boundingBox.Left > otherBoundingBox.Left) {
                                 this.horizontalCollision = HorizontalCollision.Left;
@@ -69,18 +77,16 @@ namespace RiverRaider.Class.Objects {
                     }
                 });
             }
-
-            Debug.WriteLine(this.horizontalCollision);
-            horizontalCollision = HorizontalCollision.None;
+            
         }
 
         private void handleMovement(GameTime theTime) {
             var kstate = Keyboard.GetState();
 
-            if (kstate.IsKeyDown(Keys.A) && this.pos.X > Game1.WIDTH/4 + 8 + this.texture.Width/2) {
+            if (kstate.IsKeyDown(Keys.A) && this.pos.X > Game1.WIDTH/4 + 8 + this.texture.Width/2 && this.horizontalCollision != HorizontalCollision.Left) {
                 this.texture = Game1.textureManager.player_left;
                 this.pos.X += -1 * speed * (float)theTime.ElapsedGameTime.TotalSeconds;
-            } else if (kstate.IsKeyDown(Keys.D) && this.pos.X < Game1.WIDTH - Game1.WIDTH/ 4 - 8 - this.texture.Width / 2) {
+            } else if (kstate.IsKeyDown(Keys.D) && this.pos.X < Game1.WIDTH - Game1.WIDTH/ 4 - 8 - this.texture.Width / 2 && this.horizontalCollision != HorizontalCollision.Right) {
                 this.texture = Game1.textureManager.player_right;
                 this.pos.X += 1 * speed * (float)theTime.ElapsedGameTime.TotalSeconds;
             } else {
@@ -97,6 +103,9 @@ namespace RiverRaider.Class.Objects {
                 shoot();
                 this.shootCooldown = 0.2f;
             }
+
+
+            horizontalCollision = HorizontalCollision.None;
         }
 
         private void handleShootCooldown(GameTime theTime) {
@@ -111,7 +120,7 @@ namespace RiverRaider.Class.Objects {
 
         public void drawPlayer(SpriteBatch theBatch) {
             theBatch.Draw(this.texture, new Vector2(this.pos.X-this.texture.Width/2,pos.Y), Color.White);
-            LineBatch.drawBoundingBox(this.boundingBox, theBatch);
+          //  LineBatch.drawBoundingBox(this.boundingBox, theBatch);
 
             bullets.ForEach((bullet) => bullet.drawBullet(theBatch));
 
