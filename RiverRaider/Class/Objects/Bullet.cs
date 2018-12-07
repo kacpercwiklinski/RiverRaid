@@ -42,7 +42,7 @@ namespace RiverRaider.Class.Objects {
         public void drawBullet(SpriteBatch theBatch) {
             if (this.isDrawable) {
                 theBatch.Draw(this.texture, new Vector2(this.pos.X - this.texture.Width / 2, this.pos.Y), Color.White);
-                LineBatch.drawBoundingBox(this.boundingBox, theBatch);
+               // LineBatch.drawBoundingBox(this.boundingBox, theBatch);
             }
         }
 

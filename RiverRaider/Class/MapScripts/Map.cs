@@ -101,6 +101,8 @@ namespace RiverRaider.Class.MapScripts {
                 }
 
                 tile.pos.Y += mapMovingSpeed * (float)theTime.ElapsedGameTime.TotalSeconds;
+
+                tile.updateBoundingBox();
             });
 
             mapObjects = mapObjects.FindAll((mapObject) => mapObject.onScreen || mapObject.isTriggerable);

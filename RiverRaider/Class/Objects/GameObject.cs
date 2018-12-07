@@ -15,6 +15,7 @@ namespace RiverRaider.Class {
         public Rectangle boundingBox { get; set; }
         public Boolean isTriggerable { get; set; }
         public Boolean isDrawable { get; set; }
+        public Color[] colorData;
 
         public GameObject(String labels, Texture2D texture, Vector2 position) {
             this.labels = labels.Split(' ').ToList();
@@ -23,6 +24,11 @@ namespace RiverRaider.Class {
             this.isTriggerable = true;
             this.isDrawable = true;
             this.boundingBox = new Rectangle((int)this.pos.X-this.texture.Width/2, (int)this.pos.Y-this.texture.Height/2, this.texture.Width, this.texture.Height);
+        }
+
+        public void getColorData() {
+            colorData = new Color[texture.Width * texture.Height];
+            texture.GetData(colorData);
         }
     }
 }
