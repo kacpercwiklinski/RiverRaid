@@ -20,7 +20,7 @@ namespace RiverRaider {
         ControllerDetectScreen mControllerScreen;
         Screen mCurrentScreen;
         MenuScreen mMenuScreen;
-        GameScreen mGameScreen;
+        public static GameScreen mGameScreen;
 
         public const int WIDTH = 1280;
         public const int HEIGHT = 720;

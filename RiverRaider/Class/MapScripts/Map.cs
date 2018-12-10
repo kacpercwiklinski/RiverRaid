@@ -23,10 +23,11 @@ namespace RiverRaider.Class.MapScripts {
         Tile currentTile;
 
         public static List<MapObject> mapObjects;
-        public static float mapMovingSpeed = 100f;
+        public static float mapMovingSpeed;
         
         public Map(ContentManager theContent, int tilesNumber) {
             r = new Random();
+            mapMovingSpeed = 100f;
 
             mapObjects = new List<MapObject>();
             tiles = new List<Tile>();

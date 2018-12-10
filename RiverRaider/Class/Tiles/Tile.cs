@@ -44,8 +44,9 @@ namespace RiverRaider.Class.Tiles {
         }
 
         public void drawTile(SpriteBatch theBatch) {
+            theBatch.Draw(Game1.textureManager.fullTile, this.pos, Color.White);
             theBatch.Draw(this.texture, this.pos, Color.White);
-            LineBatch.drawBoundingBox(this.boundingBox, theBatch);
+          //  LineBatch.drawBoundingBox(this.boundingBox, theBatch);
         }
 
         public void updateBoundingBox() {
