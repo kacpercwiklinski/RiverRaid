@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RiverRaider.Class {
-    class Screen {
+    public class Screen {
 
         protected static PlayerIndex PlayerOne;
         protected EventHandler ScreenEvent;

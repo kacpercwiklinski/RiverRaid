@@ -10,6 +10,8 @@ namespace RiverRaider.Class.Tiles {
         public DownShrinkedMidObstacleTile(Vector2 position) : base(position) {
             texture = Game1.textureManager.downShrinked_mid_obstacle;
             tileType = TileType.DownShrinked_mid_obstacle;
+            base.setupBoundingBox();
+            base.getColorData();
         }
     }
 }

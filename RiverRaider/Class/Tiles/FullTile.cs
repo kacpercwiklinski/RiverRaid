@@ -11,7 +11,8 @@ namespace RiverRaider.Class.Tiles {
         public FullTile(Vector2 position) : base(position) {
             this.texture = Game1.textureManager.fullTile;
             tileType = TileType.FullTile;
-            
+            base.setupBoundingBox();
+            base.getColorData();
         }
     }
 }

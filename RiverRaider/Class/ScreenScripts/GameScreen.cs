@@ -13,30 +13,24 @@ using RiverRaider.Class.userInterface;
 using RiverRaider.Class.MapScripts;
 
 namespace RiverRaider.Class.ScreenScripts {
-    class GameScreen : Screen {
-        
+    public class GameScreen : Screen {
+
+        const int mapTilesNumber = 100;
         Player player;
         Map map;
         UI ui;
         Texture2D debugCenterLine;
-        MapObject fuel;
-        MapObject fuel1;
-        MapObject fuel2;
+        ContentManager cm;
         
         public GameScreen(ContentManager theContent, EventHandler theScreenEvent) : base(theScreenEvent) {
+            cm = theContent;
             //Load the background texture for the screen
             // mGameScreenBackground = theContent.Load<Texture2D>("textures/background/gameBackground");
-            fuel = new Fuel(new Vector2(Game1.WIDTH / 2, Game1.HEIGHT / 2));
-            fuel1 = new Fuel(new Vector2(Game1.WIDTH / 2 - 150, Game1.HEIGHT / 2 - 100));
-            fuel2 = new Fuel(new Vector2(Game1.WIDTH / 2 + 150, Game1.HEIGHT / 2 - 200));
+
 
             player = new Player("Player", Game1.textureManager.player, new Vector2(0,0));
             ui = new UI(theContent);
-            map = new Map(theContent,25);
-
-            Map.mapObjects.Add(fuel);
-            Map.mapObjects.Add(fuel1);
-            Map.mapObjects.Add(fuel2);
+            map = new Map(theContent,mapTilesNumber);
 
             debugCenterLine = Game1.textureManager.centerLine;
         }
@@ -71,8 +65,10 @@ namespace RiverRaider.Class.ScreenScripts {
         }
         
         public void StartGame() {
+            player = new Player("Player", Game1.textureManager.player, new Vector2(0, 0));
             player.resetPlayerPos();
-
+            ui = new UI(cm);
+            map = new Map(cm, mapTilesNumber);
         }
     }
 }

@@ -17,25 +17,9 @@ namespace RiverRaider.Class.MapScripts {
             explosionTexture = Game1.textureManager.fuel_explosion;
             resetPosition();
             this.boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
-
-
+            
             disappearTime = 1f;
             isHit = false;
         }
-
-        /*public override void updateObject(GameTime theTime) {
-            if (isHit) {
-                changeTexture();
-                disappearTime -= (float)theTime.ElapsedGameTime.TotalSeconds;
-            }
-            if (disappearTime <= 0f) {
-                this.onScreen = false;
-            }
-        }
-
-        private void changeTexture() {
-            this.texture = this.explosionTexture;
-        }
-        */
     }
 }

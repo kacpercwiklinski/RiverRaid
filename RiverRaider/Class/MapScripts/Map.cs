@@ -23,10 +23,11 @@ namespace RiverRaider.Class.MapScripts {
         Tile currentTile;
 
         public static List<MapObject> mapObjects;
-        public static float mapMovingSpeed = 100f;
+        public static float mapMovingSpeed;
         
         public Map(ContentManager theContent, int tilesNumber) {
             r = new Random();
+            mapMovingSpeed = 100f;
 
             mapObjects = new List<MapObject>();
             tiles = new List<Tile>();
@@ -101,6 +102,8 @@ namespace RiverRaider.Class.MapScripts {
                 }
 
                 tile.pos.Y += mapMovingSpeed * (float)theTime.ElapsedGameTime.TotalSeconds;
+
+                tile.updateBoundingBox();
             });
 
             mapObjects = mapObjects.FindAll((mapObject) => mapObject.onScreen || mapObject.isTriggerable);
