@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework;
 namespace RiverRaider.Class.MapScripts {
     class Fuel : MapObject {
         
-
         public Fuel(Vector2 position) : base(position) {
             label = "Fuel";
             this.pos = position;

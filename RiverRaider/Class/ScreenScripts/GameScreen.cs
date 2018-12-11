@@ -21,6 +21,8 @@ namespace RiverRaider.Class.ScreenScripts {
         UI ui;
         Texture2D debugCenterLine;
         ContentManager cm;
+
+        Fuel fuel;
         
         public GameScreen(ContentManager theContent, EventHandler theScreenEvent) : base(theScreenEvent) {
             cm = theContent;
@@ -32,6 +34,9 @@ namespace RiverRaider.Class.ScreenScripts {
             ui = new UI(theContent);
             map = new Map(theContent,mapTilesNumber);
 
+            fuel = new Fuel(new Vector2(Game1.WIDTH / 2, Game1.HEIGHT / 2));
+            Map.mapObjects.Add(fuel);
+
             debugCenterLine = Game1.textureManager.centerLine;
         }
 
@@ -40,14 +45,12 @@ namespace RiverRaider.Class.ScreenScripts {
 
             player.update(theTime);
             map.updateMap(theTime);
-
+            ui.updateUI(theTime);
             
-
             base.Update(theTime);
         }
 
         public override void Draw(SpriteBatch theBatch) {
-            
 
             //Draw Map
             map.drawMap(theBatch);
@@ -60,7 +63,7 @@ namespace RiverRaider.Class.ScreenScripts {
 
             // Draw UI
             ui.drawUI(theBatch);
-
+            
             base.Draw(theBatch);
         }
         

@@ -15,21 +15,20 @@ namespace RiverRaider.Class.MapScripts {
 
         Random r;
 
-        public const int maxMovingSpeed = 1000;
+        public const int maxMovingSpeed = 600;
         public const int minMovingSpeed = 0;
 
         Tile firstTile;
         public static List<Tile> tiles;
         Tile currentTile;
 
-        public static List<MapObject> mapObjects;
+        public static List<MapObject> mapObjects = new List<MapObject>();
         public static float mapMovingSpeed;
         
         public Map(ContentManager theContent, int tilesNumber) {
             r = new Random();
             mapMovingSpeed = 100f;
-
-            mapObjects = new List<MapObject>();
+            
             tiles = new List<Tile>();
             firstTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
             tiles.Add(firstTile);
@@ -89,17 +88,14 @@ namespace RiverRaider.Class.MapScripts {
             // Move and remove objects below screen
             mapObjects.ForEach((mapobject) => {
                 mapobject.updateObject(theTime);
-                if (mapobject.pos.Y > Game1.HEIGHT + 10) {
-                    mapobject.onScreen = false;
-                }
+                if (mapobject.pos.Y > Game1.textureManager.fullTile.Height + mapobject.texture.Height) mapobject.onScreen = false;
+
                 mapobject.pos.Y += mapMovingSpeed * (float)theTime.ElapsedGameTime.TotalSeconds;
             });
 
             // Move and remove tiles below screen
             tiles.ForEach((tile) => {
-                if (tile.pos.Y > Game1.HEIGHT) {
-                    tile.onScreen = false;
-                }
+                if (tile.pos.Y > Game1.HEIGHT) tile.onScreen = false;
 
                 tile.pos.Y += mapMovingSpeed * (float)theTime.ElapsedGameTime.TotalSeconds;
 
