@@ -46,7 +46,7 @@ namespace RiverRaider.Class.Objects {
         }
 
         private void updateBoundingBox() {
-            boundingBox = new Rectangle((int)this.pos.X- Game1.textureManager.player.Width/2, (int)this.pos.Y, Game1.textureManager.player.Width, Game1.textureManager.player.Height);
+            boundingBox = new Rectangle((int)this.pos.X- this.texture.Width/2, (int)this.pos.Y, this.texture.Width, this.texture.Height);
         }
 
         private void handleTilesCollisions() {
