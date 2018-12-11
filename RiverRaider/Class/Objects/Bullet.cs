@@ -27,7 +27,7 @@ namespace RiverRaider.Class.Objects {
 
         private void handleCollisions() {
             Map.mapObjects.ForEach((mapObject) => {
-                if (mapObject.boundingBox.Intersects(base.boundingBox) && mapObject.isTriggerable) {
+                if (mapObject.boundingBox.Intersects(this.boundingBox) && mapObject.isTriggerable) {
                     this.isDrawable = false;
                     mapObject.isHit = true;
                     mapObject.isTriggerable = false;

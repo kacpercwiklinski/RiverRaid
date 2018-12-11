@@ -12,17 +12,27 @@ using RiverRaider.Class.Tiles;
 
 namespace RiverRaider.Class.Objects {
     class Player : GameObject {
-        float speed = 200f;
         public static List<Bullet> bullets;
-        float shootCooldown = 0.2f;
-        float acceleration = 400f;
+        float speed = 200f;
+        float shootCooldown;
+        float acceleration;
+        float fuelUsageRate;
+        public static float fuel;
+        bool fueling = false;
 
         public Player(string labels, Texture2D texture, Vector2 position) : base(labels, texture, position) {
             bullets = new List<Bullet>();
+            speed = 200f;
+            shootCooldown = 0.2f;
+            acceleration = 400f;
+            fuelUsageRate = 1f;
+            fuel = 100f;
+            fueling = false;
             base.getColorData();
         }
 
         public void update(GameTime theTime) {
+            
             // Handle shooting timer
             handleShootCooldown(theTime);
             
@@ -35,13 +45,44 @@ namespace RiverRaider.Class.Objects {
             // Handle tiles collisions
             handleTilesCollisions();
 
+            // Handle map objects collisions
+            handleMapObjectsCollisions();
+
+            // Fueling
+            refueling(theTime);
+
             // Update bullets
             bullets.ForEach((bullet) => bullet.updateBullet(theTime));
             bullets = bullets.FindAll((bullet) => bullet.isDrawable);
         }
 
+        private void refueling(GameTime theTime) {
+            if (fuel > 0) {
+                fuel -= fuelUsageRate * (float)theTime.ElapsedGameTime.TotalSeconds;
+            } else fuel = 0;
+
+            if (fueling && fuel < 100f) {
+                fuel += 10f * (float)theTime.ElapsedGameTime.TotalSeconds;
+                if(fuel > 100f) {
+                    fuel = 100f;
+                }
+            }
+
+            fueling = false;
+        }
+
         private void updateBoundingBox() {
             boundingBox = new Rectangle((int)this.pos.X- this.texture.Width/2, (int)this.pos.Y, this.texture.Width, this.texture.Height);
+        }
+
+        private void handleMapObjectsCollisions() {
+            Map.mapObjects.ForEach((mapObject) => {
+                if (mapObject.boundingBox.Intersects(this.boundingBox)) {
+                    if (mapObject.label.Equals("Fuel")) {
+                        fueling = true;
+                    } 
+                }
+            });
         }
 
         private void handleTilesCollisions() {
@@ -102,7 +143,6 @@ namespace RiverRaider.Class.Objects {
         public void drawPlayer(SpriteBatch theBatch) {
             theBatch.Draw(this.texture, new Vector2(this.pos.X-this.texture.Width/2,pos.Y), Color.White);
           //  LineBatch.drawBoundingBox(this.boundingBox, theBatch);
-           
             bullets.ForEach((bullet) => bullet.drawBullet(theBatch));
         }
 

@@ -67,7 +67,5 @@ namespace RiverRaider.Class.MapScripts {
         private void changeTexture() {
             this.texture = this.explosionTexture;
         }
-
-
     }
 }
