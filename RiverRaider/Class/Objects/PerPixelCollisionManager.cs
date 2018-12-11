@@ -21,8 +21,7 @@ namespace RiverRaider.Class.Objects {
                 for (int x = left; x < right; x++) {
                     int idx1 = (x - hitbox1.Left) + (y - hitbox1.Top) * hitbox1.Width;
                     int idx2 = (x - hitbox2.Left) + (y - hitbox2.Top) * hitbox2.Width;
-
-                   // Debug.WriteLine(idx1);
+                    
                     Color color1 = colorData1[idx1];
                     Color color2 = colorData2[idx2];
         
@@ -32,7 +31,5 @@ namespace RiverRaider.Class.Objects {
             }
             return false;
         }
-
-
     }
 }
