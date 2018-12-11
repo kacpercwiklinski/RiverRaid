@@ -15,8 +15,8 @@ namespace RiverRaider.Class.MapScripts {
 
         Random r;
 
-        public const int maxMovingSpeed = 600;
-        public const int minMovingSpeed = 0;
+        public const int maxMovingSpeed = 500;
+        public const int minMovingSpeed = 100;
 
         Tile firstTile;
         public static List<Tile> tiles;
@@ -28,7 +28,6 @@ namespace RiverRaider.Class.MapScripts {
         public Map(ContentManager theContent, int tilesNumber) {
             r = new Random();
             mapMovingSpeed = 100f;
-            
             tiles = new List<Tile>();
             firstTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
             tiles.Add(firstTile);

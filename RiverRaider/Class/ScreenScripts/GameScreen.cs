@@ -21,15 +21,13 @@ namespace RiverRaider.Class.ScreenScripts {
         UI ui;
         Texture2D debugCenterLine;
         ContentManager cm;
-
         Fuel fuel;
         
         public GameScreen(ContentManager theContent, EventHandler theScreenEvent) : base(theScreenEvent) {
             cm = theContent;
             //Load the background texture for the screen
             // mGameScreenBackground = theContent.Load<Texture2D>("textures/background/gameBackground");
-
-
+            
             player = new Player("Player", Game1.textureManager.player, new Vector2(0,0));
             ui = new UI(theContent);
             map = new Map(theContent,mapTilesNumber);
@@ -46,12 +44,10 @@ namespace RiverRaider.Class.ScreenScripts {
             player.update(theTime);
             map.updateMap(theTime);
             ui.updateUI(theTime);
-            
             base.Update(theTime);
         }
 
         public override void Draw(SpriteBatch theBatch) {
-
             //Draw Map
             map.drawMap(theBatch);
 

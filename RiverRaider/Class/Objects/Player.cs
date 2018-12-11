@@ -32,7 +32,6 @@ namespace RiverRaider.Class.Objects {
         }
 
         public void update(GameTime theTime) {
-            
             // Handle shooting timer
             handleShootCooldown(theTime);
             

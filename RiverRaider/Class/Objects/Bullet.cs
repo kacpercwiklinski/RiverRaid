@@ -45,7 +45,5 @@ namespace RiverRaider.Class.Objects {
                // LineBatch.drawBoundingBox(this.boundingBox, theBatch);
             }
         }
-
-
     }
 }
