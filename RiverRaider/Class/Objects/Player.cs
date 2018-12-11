@@ -11,16 +11,11 @@ using RiverRaider.Class.MapScripts;
 using RiverRaider.Class.Tiles;
 
 namespace RiverRaider.Class.Objects {
-
-    public enum HorizontalCollision {  Left,Right, None }
-
     class Player : GameObject {
         float speed = 200f;
         public static List<Bullet> bullets;
         float shootCooldown = 0.2f;
         float acceleration = 400f;
-        HorizontalCollision horizontalCollision = HorizontalCollision.None;
-
 
         public Player(string labels, Texture2D texture, Vector2 position) : base(labels, texture, position) {
             bullets = new List<Bullet>();
@@ -62,11 +57,7 @@ namespace RiverRaider.Class.Objects {
                 tempTiles.ForEach((tempTile) => {
                     if (tempTile.boundingBox.Intersects(boundingBox) && tempTile.tileType != TileType.FullTile) {
                         bool collision = PerPixelCollisionManager.IntersectsPixel(boundingBox,colorData, tempTile.boundingBox,tempTile.colorData);
-
-                        if (collision) {
-                            explode();
-                        }
-
+                        if (collision) explode();
                     }
                 });
             }
@@ -76,10 +67,10 @@ namespace RiverRaider.Class.Objects {
         private void handleMovement(GameTime theTime) {
             var kstate = Keyboard.GetState();
 
-            if (kstate.IsKeyDown(Keys.A) && this.pos.X > Game1.WIDTH/4 + 8 + this.texture.Width/2 && this.horizontalCollision != HorizontalCollision.Left) {
+            if (kstate.IsKeyDown(Keys.A) && this.pos.X > Game1.WIDTH/4 + 8 + this.texture.Width/2) {
                 this.texture = Game1.textureManager.player_left;
                 this.pos.X += -1 * speed * (float)theTime.ElapsedGameTime.TotalSeconds;
-            } else if (kstate.IsKeyDown(Keys.D) && this.pos.X < Game1.WIDTH - Game1.WIDTH/ 4 - 8 - this.texture.Width / 2 && this.horizontalCollision != HorizontalCollision.Right) {
+            } else if (kstate.IsKeyDown(Keys.D) && this.pos.X < Game1.WIDTH - Game1.WIDTH/ 4 - 8 - this.texture.Width / 2) {
                 this.texture = Game1.textureManager.player_right;
                 this.pos.X += 1 * speed * (float)theTime.ElapsedGameTime.TotalSeconds;
             } else {
@@ -96,9 +87,6 @@ namespace RiverRaider.Class.Objects {
                 shoot();
                 this.shootCooldown = 0.2f;
             }
-
-
-            horizontalCollision = HorizontalCollision.None;
         }
 
         private void handleShootCooldown(GameTime theTime) {
@@ -115,9 +103,7 @@ namespace RiverRaider.Class.Objects {
             theBatch.Draw(this.texture, new Vector2(this.pos.X-this.texture.Width/2,pos.Y), Color.White);
           //  LineBatch.drawBoundingBox(this.boundingBox, theBatch);
            
-
             bullets.ForEach((bullet) => bullet.drawBullet(theBatch));
-
         }
 
         public void resetPlayerPos() {
