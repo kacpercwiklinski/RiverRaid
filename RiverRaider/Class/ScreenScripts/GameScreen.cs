@@ -23,6 +23,7 @@ namespace RiverRaider.Class.ScreenScripts {
         ContentManager cm;
         Fuel fuel;
         
+        
         public GameScreen(ContentManager theContent, EventHandler theScreenEvent) : base(theScreenEvent) {
             cm = theContent;
             //Load the background texture for the screen
@@ -34,6 +35,8 @@ namespace RiverRaider.Class.ScreenScripts {
 
             fuel = new Fuel(new Vector2(Game1.WIDTH / 2, Game1.HEIGHT / 2));
             Map.mapObjects.Add(fuel);
+
+            
 
             debugCenterLine = Game1.textureManager.centerLine;
         }

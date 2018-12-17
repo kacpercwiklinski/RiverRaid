@@ -21,6 +21,7 @@ namespace RiverRaider.Class.MapScripts {
         Tile firstTile;
         public static List<Tile> tiles;
         Tile currentTile;
+        
 
         public static List<MapObject> mapObjects = new List<MapObject>();
         public static float mapMovingSpeed;
@@ -37,34 +38,58 @@ namespace RiverRaider.Class.MapScripts {
         }
 
         private void generateMap(int tilesNumber) {
+            Tile nextTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
+
+
+            int j = 0;
+
             for (int i = 1; i <= tilesNumber; i++) {
-                Tile nextTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
+                
+                j = j + 1;
+                if (j >= 10)
+                {
+                    j = 0;
+                }
+                
 
                 if (currentTile.tileType == TileType.FullTile) {
+                    currentTile.generateFuel(new Vector2(540 - j * 10, currentTile.pos.Y / 2 - j * 50));
                     int random = r.Next(0, 2);
                     if (random == 0) {
                         nextTile = new UpShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked.Height - 1));
+                        
                     } else if (random == 1) {
                         nextTile = new UpShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.UpShrinked) {
+                    currentTile.genreateEnemyHeli(new Vector2(700-j*10, currentTile.pos.Y / 2 - j*50));
                     int random = r.Next(0, 2);
                     if (random == 0) {
                         nextTile = new DownShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked.Height - 1));
+                        
+                        
+
                     } else if (random == 1) {
                         nextTile = new DownShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.DownShrinked) {
+                    currentTile.generateEnemyShip(new Vector2(630- j * 10, currentTile.pos.Y / 2 - j*50));
                     int random = r.Next(0, 3);
                     if (random == 0) {
                         nextTile = new UpShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked.Height - 1));
+                        
                     } else if (random == 1) {
                         nextTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.fullTile.Height - 1));
+                        
                     } else if (random == 2) {
                         nextTile = new UpShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.UpShrinked_mid_obstacle) {
+                    
                     nextTile = new DownShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked.Height - 1));
+                   
+
+
                 } else if (currentTile.tileType == TileType.DownShrinked_mid_obstacle) {
                     int random = r.Next(0, 2);
                     if (random == 0) {
@@ -77,6 +102,9 @@ namespace RiverRaider.Class.MapScripts {
                 tiles.Add(nextTile);
                 currentTile = nextTile;
             }
+
+            
+
         }
 
         public void updateMap(GameTime theTime) {

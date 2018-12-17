@@ -13,6 +13,7 @@ namespace RiverRaider.Class.Tiles {
             tileType = TileType.UpShrinked;
             base.setupBoundingBox();
             base.getColorData();
+            
         }
     }
 }

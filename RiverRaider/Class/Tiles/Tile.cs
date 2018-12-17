@@ -33,11 +33,28 @@ namespace RiverRaider.Class.Tiles {
             this.tileType = TileType.FullTile;
         }
 
-        public void generateEnemies() {
-            for (int i = 0; i < random.Next(0, maxEnemies+1); i++) {
-                // TODO: SPAWN ENEMIES
-            }
+        public void generateEnemyShip(Vector2 vector2)
+        {
+                Ship ship;
+                ship = new Ship(vector2);
+                Map.mapObjects.Add(ship);
         }
+
+        public void genreateEnemyHeli(Vector2 vector2)
+        {
+            Helicopter helicopter;
+            helicopter = new Helicopter(vector2);
+            Map.mapObjects.Add(helicopter);
+        }
+
+
+        public void generateFuel(Vector2 vector2)
+        {
+            Fuel fuel;
+            fuel = new Fuel(vector2);
+            Map.mapObjects.Add(fuel);
+        }
+
 
         public virtual void setupBoundingBox() {
             this.boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, Game1.textureManager.fullTile.Width, Game1.textureManager.fullTile.Height);
