@@ -73,6 +73,7 @@ namespace RiverRaider {
             if (chosenOption.label.Equals("Play")) {
                 mCurrentScreen = mGameScreen;
                 mGameScreen.StartGame();
+                
             }  else if (chosenOption.label.Equals("Exit")) {
                 Exit();
             }
