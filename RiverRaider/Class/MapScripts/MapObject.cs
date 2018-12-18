@@ -75,11 +75,11 @@ namespace RiverRaider.Class.MapScripts {
                     bool collision = false;
                     if(currentTile.tileType != TileType.FullTile) {
                         collision = PerPixelCollisionManager.IntersectsPixel(boundingBox, this.colorData, currentTile.boundingBox, currentTile.colorData);
-                    } else {
-                        if (this.pos.X <= currentTile.pos.X) collision = true;
-                        if (this.pos.X + this.texture.Width >= currentTile.pos.X + currentTile.texture.Width) collision = true;
-                    }
 
+                    }
+                    if (this.pos.X <= currentTile.pos.X) collision = true;
+                    if (this.pos.X + this.texture.Width >= currentTile.pos.X + currentTile.texture.Width) collision = true;
+                
                     if (collision) {
                         if(this.direction == 1) {
                             this.pos.X -= 5;
@@ -91,9 +91,6 @@ namespace RiverRaider.Class.MapScripts {
                     }
                 }
             }
-
-
-
         }
 
         private void updateObjectPos(GameTime theTime) {

@@ -165,7 +165,6 @@ namespace RiverRaider.Class.MapScripts {
 
             mapObjects.ForEach((mapObject) => {
                 mapObject.draw(theBatch);
-                LineBatch.drawBoundingBox(mapObject.boundingBox, theBatch);
             });
 
         }
