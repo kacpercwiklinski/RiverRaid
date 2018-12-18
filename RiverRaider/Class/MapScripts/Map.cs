@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace RiverRaider.Class.MapScripts {
     class Map {
         Random r;
-        public const int maxMovingSpeed = 500, minMovingSpeed = 0;
+        public const int maxMovingSpeed = 500, minMovingSpeed = 200;
         Tile firstTile, currentTile;
         public static List<Tile> tiles;
 
