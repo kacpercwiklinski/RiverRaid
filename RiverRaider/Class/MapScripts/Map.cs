@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace RiverRaider.Class.MapScripts {
     class Map {
         Random r;
-        public const int maxMovingSpeed = 500, minMovingSpeed = 200;
+        public const float maxMovingSpeed = 500f, minMovingSpeed = 100f;
         Tile firstTile, currentTile;
         public static List<Tile> tiles;
 
@@ -22,7 +22,7 @@ namespace RiverRaider.Class.MapScripts {
         
         public Map(ContentManager theContent, int tilesNumber) {
             r = new Random();
-            mapMovingSpeed = 20f;
+            mapMovingSpeed = 100f;
             tiles = new List<Tile>();
             firstTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
             tiles.Add(firstTile);
