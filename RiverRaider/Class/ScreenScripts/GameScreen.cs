@@ -33,12 +33,12 @@ namespace RiverRaider.Class.ScreenScripts {
             ui = new UI(theContent);
             map = new Map(theContent,mapTilesNumber);
 
-            fuel = new Fuel(new Vector2(Game1.WIDTH / 2, Game1.HEIGHT / 2));
-            Map.mapObjects.Add(fuel);
+            //fuel = new Fuel(new Vector2(Game1.WIDTH / 2, Game1.HEIGHT / 2));
+            //Map.mapObjects.Add(fuel);
 
-            
 
-            debugCenterLine = Game1.textureManager.centerLine;
+
+            //debugCenterLine = Game1.textureManager.centerLine;
         }
 
         public override void Update(GameTime theTime) {
@@ -58,7 +58,7 @@ namespace RiverRaider.Class.ScreenScripts {
             player.drawPlayer(theBatch);
 
             // Debug
-            theBatch.Draw(debugCenterLine, new Vector2(Game1.WIDTH/2,0), Color.White);
+            //theBatch.Draw(debugCenterLine, new Vector2(Game1.WIDTH/2,0), Color.White);
 
             // Draw UI
             ui.drawUI(theBatch);
@@ -69,8 +69,10 @@ namespace RiverRaider.Class.ScreenScripts {
         public void StartGame() {
             player = new Player("Player", Game1.textureManager.player, new Vector2(0, 0));
             player.resetPlayerPos();
+            Map.mapObjects = new List<MapObject>();
             ui = new UI(cm);
             map = new Map(cm, mapTilesNumber);
+
         }
     }
 }

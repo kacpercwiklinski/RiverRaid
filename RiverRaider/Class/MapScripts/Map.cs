@@ -12,23 +12,17 @@ using System.Threading.Tasks;
 
 namespace RiverRaider.Class.MapScripts {
     class Map {
-
         Random r;
-
-        public const int maxMovingSpeed = 500;
-        public const int minMovingSpeed = 100;
-
-        Tile firstTile;
+        public const int maxMovingSpeed = 500, minMovingSpeed = 0;
+        Tile firstTile, currentTile;
         public static List<Tile> tiles;
-        Tile currentTile;
-        
 
         public static List<MapObject> mapObjects = new List<MapObject>();
         public static float mapMovingSpeed;
         
         public Map(ContentManager theContent, int tilesNumber) {
             r = new Random();
-            mapMovingSpeed = 100f;
+            mapMovingSpeed = 20f;
             tiles = new List<Tile>();
             firstTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
             tiles.Add(firstTile);
@@ -39,18 +33,19 @@ namespace RiverRaider.Class.MapScripts {
 
         private void generateMap(int tilesNumber) {
             Tile nextTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
+            List<Vector2> randomPlaces;
 
             for (int i = 1; i <= tilesNumber; i++) {
                 if (currentTile.tileType == TileType.FullTile) {
+                    randomPlaces = currentTile.spawnPlaces;
 
-                    FullTile tempTile = (FullTile)currentTile;
-                    Vector2 randomPlace = tempTile.spawnPlaces.ElementAt(r.Next(0, tempTile.spawnPlaces.Count()));
-                    tempTile.generateFuel(randomPlace);
-                    
-
-                    Vector2 randomPlace2 = tempTile.spawnPlacesShip.ElementAt(r.Next(0, tempTile.spawnPlacesShip.Count()));
-                    tempTile.generateEnemyShip(randomPlace2);
-
+                    for (int x = 0; x < r.Next(1,currentTile.maxEnemies); x++) {
+                        if(randomPlaces.Count() > 0) {
+                            Vector2 randomPlace = randomPlaces.ElementAt(r.Next(0, randomPlaces.Count()));
+                            randomPlaces.Remove(randomPlace);
+                            currentTile.generateMapObject(randomPlace);
+                        }
+                    }
 
                     int random = r.Next(0, 2);
                     if (random == 0) {
@@ -60,29 +55,32 @@ namespace RiverRaider.Class.MapScripts {
                         nextTile = new UpShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.UpShrinked) {
-                    UpShrinkedTile tempTile = (UpShrinkedTile)currentTile;
+                    randomPlaces = currentTile.spawnPlaces;
 
-                    Vector2 randomPlace2 = tempTile.spawnPlacesShip.ElementAt(r.Next(0, tempTile.spawnPlacesShip.Count()));
-                    tempTile.generateEnemyShip(randomPlace2);
-
-                    Vector2 randomPlace3 = tempTile.spawnPlacesHeli.ElementAt(r.Next(0, tempTile.spawnPlacesHeli.Count()));
-                    tempTile.genreateEnemyHeli(randomPlace3);
-
-
+                    for (int x = 0; x < r.Next(1, currentTile.maxEnemies); x++) {
+                        if (randomPlaces.Count() > 0) {
+                            Vector2 randomPlace = randomPlaces.ElementAt(r.Next(0, randomPlaces.Count()));
+                            randomPlaces.Remove(randomPlace);
+                            currentTile.generateMapObject(randomPlace);
+                        }
+                    }
 
                     int random = r.Next(0, 2);
                     if (random == 0) {
                         nextTile = new DownShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked.Height - 1));
-                        
-                        
-
                     } else if (random == 1) {
                         nextTile = new DownShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.DownShrinked) {
-                    DownShrinkedTile tempTile = (DownShrinkedTile)currentTile;
-                    Vector2 randomPlace = tempTile.spawnPlaces.ElementAt(r.Next(0, tempTile.spawnPlaces.Count()));
-                    tempTile.generateFuel(randomPlace);
+                    randomPlaces = currentTile.spawnPlaces;
+
+                    for (int x = 0; x < r.Next(1, currentTile.maxEnemies); x++) {
+                        if (randomPlaces.Count() > 0) {
+                            Vector2 randomPlace = randomPlaces.ElementAt(r.Next(0, randomPlaces.Count()));
+                            randomPlaces.Remove(randomPlace);
+                            currentTile.generateMapObject(randomPlace);
+                        }
+                    }
 
 
                     int random = r.Next(0, 3);
@@ -96,19 +94,27 @@ namespace RiverRaider.Class.MapScripts {
                         nextTile = new UpShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.UpShrinked_mid_obstacle) {
-                    UpShrinkedMidObstacleTile tempTile = (UpShrinkedMidObstacleTile)currentTile;
-                    Vector2 randomPlace = tempTile.spawnPlaces.ElementAt(r.Next(0, tempTile.spawnPlaces.Count()));
-                    tempTile.generateFuel(randomPlace);
+                    randomPlaces = currentTile.spawnPlaces;
 
+                    for (int x = 0; x < r.Next(1, currentTile.maxEnemies); x++) {
+                        if (randomPlaces.Count() > 0) {
+                            Vector2 randomPlace = randomPlaces.ElementAt(r.Next(0, randomPlaces.Count()));
+                            randomPlaces.Remove(randomPlace);
+                            currentTile.generateMapObject(randomPlace);
+                        }
+                    }
 
                     nextTile = new DownShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked.Height - 1));
-                    
-
-
                 } else if (currentTile.tileType == TileType.DownShrinked_mid_obstacle) {
-                    DownShrinkedMidObstacleTile tempTile = (DownShrinkedMidObstacleTile)currentTile;
-                    Vector2 randomPlace3 = tempTile.spawnPlacesHeli.ElementAt(r.Next(0, tempTile.spawnPlacesHeli.Count()));
-                    tempTile.genreateEnemyHeli(randomPlace3);
+                    randomPlaces = currentTile.spawnPlaces;
+
+                    for (int x = 0; x < r.Next(1, currentTile.maxEnemies); x++) {
+                        if (randomPlaces.Count() > 0) {
+                            Vector2 randomPlace = randomPlaces.ElementAt(r.Next(0, randomPlaces.Count()));
+                            randomPlaces.Remove(randomPlace);
+                            currentTile.generateMapObject(randomPlace);
+                        }
+                    }
 
                     int random = r.Next(0, 2);
                     if (random == 0) {
@@ -159,7 +165,6 @@ namespace RiverRaider.Class.MapScripts {
 
             mapObjects.ForEach((mapObject) => {
                 mapObject.draw(theBatch);
-                LineBatch.drawBoundingBox(mapObject.boundingBox, theBatch);
             });
 
         }

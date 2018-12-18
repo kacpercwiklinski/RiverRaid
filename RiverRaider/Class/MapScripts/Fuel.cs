@@ -15,6 +15,7 @@ namespace RiverRaider.Class.MapScripts {
             texture = Game1.textureManager.fuel;
             explosionTexture = Game1.textureManager.fuel_explosion;
             resetPosition();
+            base.getColorData();
             this.boundingBox = new Rectangle((int)this.pos.X, (int)this.pos.Y, this.texture.Width, this.texture.Height);
             
             disappearTime = 1f;
