@@ -8,9 +8,10 @@ using Microsoft.Xna.Framework;
 namespace RiverRaider.Class.MapScripts {
     class Plane : MapObject {
         public Plane(Vector2 position) : base(position) {
-            label = "Enemy";
+            label = "Plane";
             this.pos = position;
             texture = Game1.textureManager.plane;
+            base.getColorData();
             resetPosition();
         }
     }

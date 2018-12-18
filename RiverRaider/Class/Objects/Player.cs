@@ -56,6 +56,8 @@ namespace RiverRaider.Class.Objects {
         }
 
         private void refueling(GameTime theTime) {
+            if (fuel <= 0f) explode();
+
             if (fuel > 0) {
                 fuel -= fuelUsageRate * (float)theTime.ElapsedGameTime.TotalSeconds;
             } else fuel = 0;
@@ -76,10 +78,13 @@ namespace RiverRaider.Class.Objects {
 
         private void handleMapObjectsCollisions() {
             Map.mapObjects.ForEach((mapObject) => {
-                if (mapObject.boundingBox.Intersects(this.boundingBox)) {
+                if (mapObject.boundingBox.Intersects(this.boundingBox) && mapObject.isTriggerable == true) {
                     if (mapObject.label.Equals("Fuel")) {
                         fueling = true;
+                    } else {
+                        explode();
                     } 
+                    
                 }
             });
         }

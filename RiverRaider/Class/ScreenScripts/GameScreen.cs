@@ -36,7 +36,7 @@ namespace RiverRaider.Class.ScreenScripts {
             //fuel = new Fuel(new Vector2(Game1.WIDTH / 2, Game1.HEIGHT / 2));
             //Map.mapObjects.Add(fuel);
 
-            
+
 
             //debugCenterLine = Game1.textureManager.centerLine;
         }
@@ -72,7 +72,7 @@ namespace RiverRaider.Class.ScreenScripts {
             Map.mapObjects = new List<MapObject>();
             ui = new UI(cm);
             map = new Map(cm, mapTilesNumber);
-            
+
         }
     }
 }

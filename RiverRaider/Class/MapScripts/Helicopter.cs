@@ -8,9 +8,10 @@ using Microsoft.Xna.Framework;
 namespace RiverRaider.Class.MapScripts {
     class Helicopter : MapObject {
         public Helicopter(Vector2 position) : base(position) {
-            label = "Enemy";
+            label = "Helicopter";
             this.pos = position;
             texture = Game1.textureManager.helicopter_1;
+            base.getColorData();
             resetPosition();
         }
     }
