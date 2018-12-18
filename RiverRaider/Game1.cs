@@ -17,6 +17,7 @@ namespace RiverRaider {
         SpriteBatch spriteBatch;
         public static TextureManager textureManager;
         public static AudioManager audioManager;
+        public static Color tlo = new Color(110, 156, 66);
 
         ControllerDetectScreen mControllerScreen;
         Screen mCurrentScreen;
@@ -114,7 +115,8 @@ namespace RiverRaider {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.ForestGreen);
+
+            GraphicsDevice.Clear(tlo);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(); //SpriteSortMode.Immediate, BlendState.Opaque

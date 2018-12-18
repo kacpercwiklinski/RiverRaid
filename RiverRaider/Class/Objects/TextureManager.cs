@@ -18,6 +18,7 @@ namespace RiverRaider.Class.Objects {
         // Map Objects
         public  Texture2D fuel;
         public  Texture2D helicopter_1;
+        public  Texture2D helicopter_2;
         public  Texture2D plane;
         public  Texture2D ship;
 
@@ -57,6 +58,7 @@ namespace RiverRaider.Class.Objects {
             // Map Object
             fuel = theContent.Load<Texture2D>("textures/mapObjects/fuel");
             helicopter_1 = theContent.Load<Texture2D>("textures/mapObjects/helicopter_1");
+            helicopter_2 = theContent.Load<Texture2D>("textures/mapObjects/helicopter_2");
             plane = theContent.Load<Texture2D>("textures/mapObjects/plane");
             ship = theContent.Load<Texture2D>("textures/mapObjects/ship");
             fuel_explosion = theContent.Load<Texture2D>("textures/mapObjects/fuel_explosion");
