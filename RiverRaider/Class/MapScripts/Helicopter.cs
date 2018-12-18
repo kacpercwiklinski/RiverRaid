@@ -11,7 +11,10 @@ namespace RiverRaider.Class.MapScripts {
             label = "Enemy";
             this.pos = position;
             texture = Game1.textureManager.helicopter_1;
+            //texture = Game1.textureManager.helicopter_2;
             resetPosition();
         }
+
+
     }
 }
