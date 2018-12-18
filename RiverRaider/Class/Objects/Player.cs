@@ -137,6 +137,7 @@ namespace RiverRaider.Class.Objects {
 
         private void shoot() {
             bullets.Add(new Bullet("Bullet",Game1.textureManager.bullet,this.pos));
+            Game1.audioManager.shoot.Play();
         }
 
         public void drawPlayer(SpriteBatch theBatch) {

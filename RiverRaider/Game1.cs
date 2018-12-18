@@ -16,6 +16,7 @@ namespace RiverRaider {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static TextureManager textureManager;
+        public static AudioManager audioManager;
 
         ControllerDetectScreen mControllerScreen;
         Screen mCurrentScreen;
@@ -53,7 +54,9 @@ namespace RiverRaider {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             LineBatch.Init(GraphicsDevice);
+
             textureManager = new TextureManager(this.Content);
+            audioManager = new AudioManager(this.Content);
 
             mControllerScreen = new ControllerDetectScreen(this.Content, new EventHandler(ControllerDetectScreenEvent));
             mMenuScreen = new MenuScreen(this.Content, new EventHandler(MenuScreenEvent));

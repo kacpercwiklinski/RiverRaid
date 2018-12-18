@@ -45,6 +45,7 @@
     <Compile Include="Class\MapScripts\Helicopter.cs" />
     <Compile Include="Class\MapScripts\Plane.cs" />
     <Compile Include="Class\MapScripts\Ship.cs" />
+    <Compile Include="Class\Objects\AudioManager.cs" />
     <Compile Include="Class\Objects\LineBatch.cs" />
     <Compile Include="Class\Objects\PerPixelCollisionManager.cs" />
     <Compile Include="Class\Tiles\DownShrinkedMidObstacleTile.cs" />
