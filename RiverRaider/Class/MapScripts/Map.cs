@@ -40,20 +40,18 @@ namespace RiverRaider.Class.MapScripts {
         private void generateMap(int tilesNumber) {
             Tile nextTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0));
 
-
-            int j = 0;
-
             for (int i = 1; i <= tilesNumber; i++) {
-                
-                j = j + 1;
-                if (j >= 10)
-                {
-                    j = 0;
-                }
-                
-
                 if (currentTile.tileType == TileType.FullTile) {
-                    currentTile.generateFuel(new Vector2(540 - j * 10, currentTile.pos.Y / 2 - j * 50));
+
+                    FullTile tempTile = (FullTile)currentTile;
+                    Vector2 randomPlace = tempTile.spawnPlaces.ElementAt(r.Next(0, tempTile.spawnPlaces.Count()));
+                    tempTile.generateFuel(randomPlace);
+                    
+
+                    Vector2 randomPlace2 = tempTile.spawnPlacesShip.ElementAt(r.Next(0, tempTile.spawnPlacesShip.Count()));
+                    tempTile.generateEnemyShip(randomPlace2);
+
+
                     int random = r.Next(0, 2);
                     if (random == 0) {
                         nextTile = new UpShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked.Height - 1));
@@ -62,7 +60,16 @@ namespace RiverRaider.Class.MapScripts {
                         nextTile = new UpShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.UpShrinked) {
-                    currentTile.genreateEnemyHeli(new Vector2(700-j*10, currentTile.pos.Y / 2 - j*50));
+                    UpShrinkedTile tempTile = (UpShrinkedTile)currentTile;
+
+                    Vector2 randomPlace2 = tempTile.spawnPlacesShip.ElementAt(r.Next(0, tempTile.spawnPlacesShip.Count()));
+                    tempTile.generateEnemyShip(randomPlace2);
+
+                    Vector2 randomPlace3 = tempTile.spawnPlacesHeli.ElementAt(r.Next(0, tempTile.spawnPlacesHeli.Count()));
+                    tempTile.genreateEnemyHeli(randomPlace3);
+
+
+
                     int random = r.Next(0, 2);
                     if (random == 0) {
                         nextTile = new DownShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked.Height - 1));
@@ -73,7 +80,11 @@ namespace RiverRaider.Class.MapScripts {
                         nextTile = new DownShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.DownShrinked) {
-                    currentTile.generateEnemyShip(new Vector2(630- j * 10, currentTile.pos.Y / 2 - j*50));
+                    DownShrinkedTile tempTile = (DownShrinkedTile)currentTile;
+                    Vector2 randomPlace = tempTile.spawnPlaces.ElementAt(r.Next(0, tempTile.spawnPlaces.Count()));
+                    tempTile.generateFuel(randomPlace);
+
+
                     int random = r.Next(0, 3);
                     if (random == 0) {
                         nextTile = new UpShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked.Height - 1));
@@ -85,12 +96,20 @@ namespace RiverRaider.Class.MapScripts {
                         nextTile = new UpShrinkedMidObstacleTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.upShrinked_mid_obstacle.Height - 1));
                     }
                 } else if (currentTile.tileType == TileType.UpShrinked_mid_obstacle) {
-                    
+                    UpShrinkedMidObstacleTile tempTile = (UpShrinkedMidObstacleTile)currentTile;
+                    Vector2 randomPlace = tempTile.spawnPlaces.ElementAt(r.Next(0, tempTile.spawnPlaces.Count()));
+                    tempTile.generateFuel(randomPlace);
+
+
                     nextTile = new DownShrinkedTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.downShrinked.Height - 1));
-                   
+                    
 
 
                 } else if (currentTile.tileType == TileType.DownShrinked_mid_obstacle) {
+                    DownShrinkedMidObstacleTile tempTile = (DownShrinkedMidObstacleTile)currentTile;
+                    Vector2 randomPlace3 = tempTile.spawnPlacesHeli.ElementAt(r.Next(0, tempTile.spawnPlacesHeli.Count()));
+                    tempTile.genreateEnemyHeli(randomPlace3);
+
                     int random = r.Next(0, 2);
                     if (random == 0) {
                         nextTile = new FullTile(new Vector2(Game1.WIDTH / 4, 0 - i * Game1.textureManager.fullTile.Height - 1));

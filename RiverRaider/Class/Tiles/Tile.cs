@@ -53,6 +53,7 @@ namespace RiverRaider.Class.Tiles {
             Fuel fuel;
             fuel = new Fuel(vector2);
             Map.mapObjects.Add(fuel);
+            
         }
 
 
