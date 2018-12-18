@@ -16,6 +16,8 @@ namespace RiverRaider.Class.Objects
     {
 
         public SoundEffect shoot;
+        public SoundEffect boom;
+        public SoundEffect fuel;
 
         public AudioManager(ContentManager theContent)
         {
@@ -25,6 +27,8 @@ namespace RiverRaider.Class.Objects
         private void loadAudios(ContentManager theContent)
         {
             shoot = theContent.Load<SoundEffect>("audio/shoot");
+            boom = theContent.Load<SoundEffect>("audio/boom");
+            fuel = theContent.Load<SoundEffect>("audio/fuel");
         }
     }
 }
