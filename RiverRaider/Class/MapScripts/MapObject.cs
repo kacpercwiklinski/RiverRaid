@@ -28,6 +28,7 @@ namespace RiverRaider.Class.MapScripts {
         int direction = 1;
         public Color[] colorData;
         SpriteEffects s = SpriteEffects.None;
+        private bool hit = true;
 
         public MapObject(String label,Texture2D texture,Vector2 position) {
             this.label = label;
@@ -56,11 +57,13 @@ namespace RiverRaider.Class.MapScripts {
 
             updateBoundingBox(theTime);
             
-            if (isHit) {
+            if (isHit && hit) {
                 changeTexture();
+                Game1.audioManager.boom.Play();
                 this.isTriggerable = false;
                 this.label = "Explosion";
                 disappearTime -= (float)theTime.ElapsedGameTime.TotalSeconds;
+                hit = false;
             }
             if(disappearTime <= 0f) {
                 this.onScreen = false;
